@@ -55,3 +55,14 @@ button {
 .score2 {
   font-weight: bold;
 }
+
+.winner__container {
+  margin: 10px 0px;
+  font-weight: bold;
+  color: white;
+  display: none;
+}
+
+.playAgainButton {
+  display: none;
+}
