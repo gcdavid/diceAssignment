@@ -13,37 +13,47 @@ document.addEventListener("DOMContentLoaded", () => {
   rollBtn.addEventListener("click", rollButtonClick);
 
   function rollButtonClick() {
-    let player1Dice = rollDice();
-    let player2Dice = rollDice();
+    // Add the diceRollAnimation class to the dice images
+    player1DiceScore.classList.add("diceRollAnimation");
+    player2DiceScore.classList.add("diceRollAnimation");
 
-    player1DiceScore.src = `img/dice${player1Dice}.png`;
-    player2DiceScore.src = `img/dice${player2Dice}.png`;
-    console.log(player1Dice, player2Dice);
+    // Remove the diceRollAnimation class after 1 second
+    setTimeout(() => {
+      player1DiceScore.classList.remove("diceRollAnimation");
+      player2DiceScore.classList.remove("diceRollAnimation");
 
-    let player1TotalScore = +score1.textContent;
-    let player2TotalScore = +score2.textContent;
+      // Generate random dice numbers after the animation completes
+      let player1Dice = rollDice();
+      let player2Dice = rollDice();
 
-    // Add the previous score to the new dice number
-    player1TotalScore += player1Dice;
-    player2TotalScore += player2Dice;
+      player1DiceScore.src = `img/dice${player1Dice}.png`;
+      player2DiceScore.src = `img/dice${player2Dice}.png`;
 
-    // Check for the winner
-    if (player1TotalScore >= WINNING_NUMBER) {
-      winnerContainer.style.display = "block";
-      winner.textContent = "1";
-      rollBtn.style.cursor = "not-allowed";
-      rollBtn.removeEventListener("click", rollButtonClick);
-      playAgainButton.style.display = "block";
-    } else if (player2TotalScore >= WINNING_NUMBER) {
-      winnerContainer.style.display = "block";
-      winner.textContent = "2";
-      rollBtn.style.cursor = "not-allowed";
-      rollBtn.removeEventListener("click", rollButtonClick);
-      playAgainButton.style.display = "block";
-    }
+      let player1TotalScore = +score1.textContent;
+      let player2TotalScore = +score2.textContent;
 
-    score1.textContent = player1TotalScore;
-    score2.textContent = player2TotalScore;
+      // Add the previous score to the new dice number
+      player1TotalScore += player1Dice;
+      player2TotalScore += player2Dice;
+
+      // Check for the winner
+      if (player1TotalScore >= WINNING_NUMBER) {
+        winnerContainer.style.display = "block";
+        winner.textContent = "1";
+        rollBtn.style.cursor = "not-allowed";
+        rollBtn.removeEventListener("click", rollButtonClick);
+        playAgainButton.style.display = "block";
+      } else if (player2TotalScore >= WINNING_NUMBER) {
+        winnerContainer.style.display = "block";
+        winner.textContent = "2";
+        rollBtn.style.cursor = "not-allowed";
+        rollBtn.removeEventListener("click", rollButtonClick);
+        playAgainButton.style.display = "block";
+      }
+
+      score1.textContent = player1TotalScore;
+      score2.textContent = player2TotalScore;
+    }, 1000);
   }
 
   playAgainButton.addEventListener("click", resetGame);
